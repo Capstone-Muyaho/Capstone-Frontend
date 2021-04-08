@@ -9,3 +9,4 @@
 4. 전송된 메시지를 확인한다
 - 어플 사용중에는 하단에 간략한 알림이 뜸
 - 백그라운드에서 실행되고 있으면 배너 형식으로 알림이 뜸
+<img src="https://github.com/Capstone-Muyaho/Capstone-Frontend/blob/FCM-push/%EB%B0%B1%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C.PNG">
