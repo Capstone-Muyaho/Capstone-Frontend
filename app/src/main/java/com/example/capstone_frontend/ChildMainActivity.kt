@@ -19,5 +19,10 @@ class ChildMainActivity : AppCompatActivity() {
             intent.putExtra("nickName", nickName)
             startActivity(intent)
         }
+
+        btnChat.setOnClickListener {
+            val intent = Intent(this, MyChatActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

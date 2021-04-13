@@ -31,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -50,7 +54,11 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.7.0') // Firebase Android BoM
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-database-ktx' // Realtime Dataase library
+    implementation 'com.google.firebase:firebase-database:19.1.0' //블로그
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'

@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="부모"
-            android:textColor="#0000ff"
+            android:textColor="#53584C"
             android:textSize="40sp" />
 
         <RadioButton
@@ -52,7 +52,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
             android:text="자녀"
-            android:textColor="#0000ff"
+            android:textStyle="bold"
+            android:textColor="#53584C"
             android:textSize="40sp" />
     </RadioGroup>
 
@@ -75,6 +76,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="25dp"
         android:layout_marginRight="10dp"
+        android:textColor="#E7C794"
+        android:backgroundTint="#97A884"
         android:text="전송"
         android:textSize="20dp" />
 

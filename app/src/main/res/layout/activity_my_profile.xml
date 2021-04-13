@@ -42,6 +42,9 @@
         android:layout_height="wrap_content"
         android:text="로그아웃"
         android:textSize="20sp"
+        android:textColor="#E7C794"
+        android:backgroundTint="#97A884"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnKakaoUnlink"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -52,6 +55,9 @@
         android:layout_height="wrap_content"
         android:text="회원 탈퇴"
         android:textSize="10sp"
+        android:textColor="#E7C794"
+        android:backgroundTint="#97A884"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
