@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
@@ -59,7 +60,24 @@ class ChooseTypeActivity : AppCompatActivity() {
         var type: String
         var nickName: String
 
-        btnGrandma.setOnClickListener {
+        btnNickName.setOnClickListener {
+            when(typegroup.checkedRadioButtonId) {
+                R.id.btnGrandpa -> text1.text = "부모로 설정\n"
+                R.id.btnDaughter -> text1.text = "자녀로 설정\n"
+            }
+
+        }
+
+        typegroup.setOnCheckedChangeListener(CheckboxListener())
+
+        typegroup.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId) {
+                R.id.btnGrandpa -> text1.text = "'부모'를 선택하셨습니다."
+                R.id.btnDaughter -> text1.text = "'자녀'를 선택하셨습니다."
+            }
+        }
+
+        btnGrandpa.setOnClickListener {
             type = "P"
             // Toast.makeText(applicationContext, Stype, Toast.LENGTH_SHORT).show()
             btnNickName.setOnClickListener {
@@ -75,7 +93,7 @@ class ChooseTypeActivity : AppCompatActivity() {
             }
         }
 
-        btnSon.setOnClickListener {
+        btnDaughter.setOnClickListener {
             type = "C"
             // Toast.makeText(applicationContext, Stype, Toast.LENGTH_SHORT).show()
 
@@ -89,6 +107,18 @@ class ChooseTypeActivity : AppCompatActivity() {
                 intent.putExtra("type", type)
                 intent.putExtra("nickName", nickName)
                 startActivity(intent)
+            }
+        }
+    }
+
+    inner class CheckboxListener:RadioGroup.OnCheckedChangeListener {
+        override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+            when(group?.id) {
+                R.id.typegroup ->
+                    when(checkedId) {
+                        R.id.btnGrandpa -> text1.text = "부모 설정"
+                        R.id.btnDaughter -> text1.text = "자녀 설정"
+                    }
             }
         }
     }

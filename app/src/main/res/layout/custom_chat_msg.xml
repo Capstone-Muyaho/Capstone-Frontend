@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/other_cl"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/my_cl"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="date_tv"
-            android:textSize="10sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/userid_tv"
             app:layout_constraintTop_toBottomOf="@+id/userid_tv" />
 
@@ -44,7 +45,8 @@
             android:background="@drawable/bg_content_et"
             android:padding="8dp"
             android:text="content_tv"
-            android:textSize="12sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/date_tv"
             app:layout_constraintTop_toBottomOf="@+id/date_tv" />
@@ -66,7 +68,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="date_tv2"
-            android:textSize="10sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,7 +82,8 @@
             android:background="@drawable/bg_content_et"
             android:padding="8dp"
             android:text="content_tv2"
-            android:textSize="12sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/date_tv2"
             app:layout_constraintTop_toBottomOf="@+id/date_tv2" />

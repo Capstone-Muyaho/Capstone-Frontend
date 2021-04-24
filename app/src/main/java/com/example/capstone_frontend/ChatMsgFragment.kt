@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,97 +22,97 @@ import java.util.*
 class ChatMsgFragment : Fragment(),
     View.OnClickListener {
     // 로그용 TAG
-    private val TAG = javaClass.simpleName
+        private val TAG = javaClass.simpleName
 
     // 채팅을 입력할 입력창과 전송 버튼
-    var content_et: EditText? = null
-    var send_iv: ImageView? = null
+        var content_et: EditText? = null
+        var send_iv: ImageView? = null
     // var send_iv = findViewById(R.id.send_iv) as ImageView
 
     // 채팅 내용을 뿌려줄 RecyclerView 와 Adapter
-    var rv: RecyclerView? = null
+        var rv: RecyclerView? = null
 
-    var mAdapter: ChatAdapter? = null
+        var mAdapter: ChatAdapter? = null
 
     // 채팅 방 이름
-    var chatroom: String? = ""
+        var chatroom: String? = ""
 
     // 채팅 내용을 담을 배열
-    var msgList: MutableList<ChatMsgVO> = ArrayList()
+        var msgList: MutableList<ChatMsgVO> = ArrayList()
 
     // FirebaseDatabase 연결용 객체들
-    var database = FirebaseDatabase.getInstance()
-    var myRef: DatabaseReference? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+        var database = FirebaseDatabase.getInstance()
+        var myRef: DatabaseReference? = null
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+        }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_chat_msg, container, false)
-        content_et = view.findViewById(R.id.content_et)
-        send_iv = view.findViewById(R.id.send_iv)
-        rv = view.findViewById(R.id.rv)
-        send_iv?.setOnClickListener(this)
+        override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+            val view = inflater.inflate(R.layout.fragment_chat_msg, container, false)
+            content_et = view.findViewById(R.id.content_et)
+            send_iv = view.findViewById(R.id.send_iv)
+            rv = view.findViewById(R.id.rv)
+            send_iv?.setOnClickListener(this)
 
 // ChatRoomFragment 에서 받는 채팅방 이름
-        chatroom = arguments!!.getString("chatroom")
-        mAdapter = ChatAdapter(msgList)
-        rv?.setLayoutManager(LinearLayoutManager(activity))
-        rv?.setAdapter(mAdapter)
+            chatroom = arguments!!.getString("chatroom")
+            mAdapter = ChatAdapter(msgList)
+            rv?.layoutManager = LinearLayoutManager(activity)
+            rv?.adapter = mAdapter
 
 // Firebase Database 초기
-        myRef = database.getReference(chatroom!!)
+            myRef = database.getReference(chatroom!!)
 
 // Firebase Database Listener 붙이기
-        myRef!!.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(
-                dataSnapshot: DataSnapshot,
-                s: String?
-            ) {
+            myRef!!.addChildEventListener(object : ChildEventListener {
+                override fun onChildAdded(
+                    dataSnapshot: DataSnapshot,
+                    s: String?
+                ) {
 // Firebase 의 해당 DB 에 값이 추가될 경우 호출, 생성 후 최초 1번은 실행됨
-                Log.d(TAG, "onChild added")
-                Log.d(
-                    TAG,
-                    "onChild = " + dataSnapshot.getValue(ChatMsgVO::class.java)
-                        .toString()
-                )
+                    Log.d(TAG, "onChild added")
+                    Log.d(
+                        TAG,
+                        "onChild = " + dataSnapshot.getValue(ChatMsgVO::class.java)
+                            .toString()
+                    )
 
 // Database 의 정보를 ChatMsgVO 객체에 담음
-                val chatMsgVO = dataSnapshot.getValue(ChatMsgVO::class.java)!!
-                msgList.add(chatMsgVO)
+                    val chatMsgVO = dataSnapshot.getValue(ChatMsgVO::class.java)!!
+                    msgList.add(chatMsgVO)
 
 // 채팅 메시지 배열에 담고 RecyclerView 다시 그리기
-                mAdapter = ChatAdapter(msgList)
-                rv?.setAdapter(mAdapter)
-                rv?.scrollToPosition(msgList.size - 1)
-                Log.d(TAG, msgList.size.toString() + "")
-            }
+                    mAdapter = ChatAdapter(msgList)
+                    rv?.setAdapter(mAdapter)
+                    rv?.scrollToPosition(msgList.size - 1)
+                    Log.d(TAG, msgList.size.toString() + "")
+                }
 
-            override fun onChildChanged(
-                dataSnapshot: DataSnapshot,
-                s: String?
-            ) {
-            }
+                override fun onChildChanged(
+                    dataSnapshot: DataSnapshot,
+                    s: String?
+                ) {
+                }
 
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
-            override fun onChildMoved(
-                dataSnapshot: DataSnapshot,
-                s: String?
-            ) {
-            }
+                override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+                override fun onChildMoved(
+                    dataSnapshot: DataSnapshot,
+                    s: String?
+                ) {
+                }
 
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-        Log.d(TAG, "chatroom = $chatroom")
-        return view
-    }
+                override fun onCancelled(databaseError: DatabaseError) {}
+                })
+                Log.d(TAG, "chatroom = $chatroom")
+            return view
+        }
 
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.send_iv -> if (content_et!!.text.toString().trim { it <= ' ' }.length >= 1) {
+        override fun onClick(v: View) {
+            when (v.id) {
+                R.id.send_iv -> if (content_et!!.text.toString().trim { it <= ' ' }.length >= 1) {
                 Log.d(TAG, "입력처리")
                 val df =
                     SimpleDateFormat("yyyy-MM-dd HH:mm:ss")

@@ -6,48 +6,66 @@
     android:layout_height="match_parent"
     android:gravity="top|bottom"
     android:weightSum="2"
+    android:background="@drawable/myinfo1"
     tools:context=".ChooseTypeActivity">
 
     <ImageView
-        android:id="@+id/imgGrandma"
-        android:layout_width="200dp"
+        android:id="@+id/imgGrandpa"
+        android:layout_width="180dp"
         android:layout_height="370dp"
         android:layout_weight="1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
         android:adjustViewBounds="true"
         android:background="@drawable/buttonline"
         android:scaleType="fitCenter"
-        android:src="@drawable/grandma" />
+        android:src="@drawable/grandfather" />
 
     <ImageView
-        android:id="@+id/imgSon"
-        android:layout_width="220dp"
+        android:id="@+id/imgDaughter"
+        android:layout_width="200dp"
         android:layout_height="370dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/imgGrandma"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@id/imgGrandpa"
         android:layout_weight="1"
         android:adjustViewBounds="true"
         android:background="@drawable/buttonline"
         android:scaleType="fitCenter"
-        android:src="@drawable/father" />
+        android:src="@drawable/mother" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="485dp"
+        android:gravity="center"
+        android:text="유형 설정"
+        android:textColor="#FF607F"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <RadioGroup
+        android:id="@+id/typegroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="390dp"
+        android:layout_marginTop="430dp"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
         <RadioButton
-            android:id="@+id/btnGrandma"
+            android:id="@+id/btnGrandpa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="부모"
+            android:textStyle="bold"
             android:textColor="#53584C"
             android:textSize="40sp" />
 
         <RadioButton
-            android:id="@+id/btnSon"
+            android:id="@+id/btnDaughter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
@@ -61,7 +79,7 @@
         android:id="@+id/editNickName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="490dp"
+        android:layout_marginTop="535dp"
         android:gravity="center"
         android:hint="별명을 입력해주세요."
         android:maxLength="10"
@@ -74,11 +92,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editNickName"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="10dp"
-        android:textColor="#E7C794"
         android:backgroundTint="#97A884"
         android:text="전송"
+        android:textColor="#E7C794"
         android:textSize="20dp" />
 
 </RelativeLayout>
