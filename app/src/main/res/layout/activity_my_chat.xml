@@ -9,21 +9,12 @@
     android:orientation="horizontal">
 
     <FrameLayout
+        android:id="@+id/fi_frag_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id = "@+id/fi_frag_container"
-        android:layout_marginTop = "530dp"
+        android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id = "@+id/fi_frag_container1"
-        android:layout_marginTop="360dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:ignore="MissingConstraints" />
 
 </LinearLayout>
