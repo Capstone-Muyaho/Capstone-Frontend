@@ -24,7 +24,6 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatBinding // for binding
     private var retrofitClient: RetrofitClient? = null
@@ -47,11 +46,8 @@ class ChatActivity : AppCompatActivity() {
         retrofitClient = RetrofitClient.instance
 
         // MainActivity로부터 username과 roomNumber를 넘겨받음
-        val intent = intent
         username = intent.getStringExtra("username").toString()
         roomNumber = intent.getStringExtra("roomNumber").toString()
-        Log.d("로그", username)
-        Log.d("로그", roomNumber)
         adapter = ChatAdapter(applicationContext)
         val layoutManager = LinearLayoutManager(applicationContext)
         binding.recyclerView.layoutManager = layoutManager
@@ -71,7 +67,7 @@ class ChatActivity : AppCompatActivity() {
         }
 
         try {
-            mSocket = IO.socket("http://10.0.2.2:80")
+            mSocket = IO.socket("http://49.50.162.112:80")
             Log.d("success", mSocket.id())
 
         } catch (e: Exception) {

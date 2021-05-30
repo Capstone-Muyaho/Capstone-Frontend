@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/tv_friendN"
-        android:layout_width="150dp"
+        android:layout_width="170dp"
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="140dp"
@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/tv_friendT"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_marginTop="140dp"
         android:layout_marginEnd="40dp"
@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="264dp"
         android:layout_marginEnd="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

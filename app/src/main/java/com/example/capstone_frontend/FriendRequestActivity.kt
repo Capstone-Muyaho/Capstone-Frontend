@@ -58,11 +58,11 @@ class FriendRequestActivity : AppCompatActivity() {
                                             if (myType == "P") {
                                                 val chatRoom = myName + "-" + userSearchList[index].nickname
                                                 db.child(id).child("chatroom").setValue(chatRoom)
-                                                db.child(userSearchList[index].userid.toString()).child("chatroom").setValue(chatRoom)
+                                                //db.child(userSearchList[index].userid.toString()).child("chatroom").setValue(chatRoom)
                                             } else { // myType == "C"
                                                 val chatRoom = userSearchList[index].nickname + "-" + myName
                                                 db.child(id).child("chatroom").setValue(chatRoom)
-                                                db.child(userSearchList[index].userid.toString()).child("chatroom").setValue(chatRoom)
+                                                //db.child(userSearchList[index].userid.toString()).child("chatroom").setValue(chatRoom)
                                             }
 
                                             val intent = Intent(this@FriendRequestActivity, FriendListActivity::class.java)
@@ -70,8 +70,9 @@ class FriendRequestActivity : AppCompatActivity() {
                                         }
 
                                         btn_reject.setOnClickListener {
-                                            db.child(id).child("friend").setValue(null)
+                                            //db.child(id).child("friend").setValue(null)
                                             db.child(userSearchList[index].userid.toString()).child("friend").setValue(null)
+                                            db.child(userSearchList[index].userid.toString()).child("chatroom").setValue(null)
                                             Toast.makeText(this@FriendRequestActivity, "친구 요청을 거절하였습니다.", Toast.LENGTH_LONG).show()
                                             val intent = Intent(this@FriendRequestActivity, FriendListActivity::class.java)
                                             startActivity(intent.addFlags(FLAG_ACTIVITY_SINGLE_TOP))

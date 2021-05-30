@@ -47,14 +47,14 @@ class FriendListActivity : AppCompatActivity() {
                                     userSearchList.add(userSearch!!)
 
                                     if (myFriend != "" && myFriend == userSearchList[index].nickname.toString()) {
-                                        if(userSearchList[index].friend.toString() != "Waiting" && userSearchList[index].friend.toString() == myNick) {
+                                        if(userSearchList[index].friend.toString() == myNick) {
                                             friendNick = myFriend
                                             if(userSearchList[index].type.toString() == "P") {
                                                 friendType = "부모"
                                             } else if(userSearchList[index].type.toString() =="C") {
                                                 friendType = "자녀"
                                             }
-                                        } else if(userSearchList[index].friend.toString() == "Waiting") {
+                                        } else if(userSearchList[index].friend.toString() == "") {
                                             Toast.makeText(this@FriendListActivity, "상대방 요청이 필요합니다.", Toast.LENGTH_SHORT).show()
                                         }
                                     }
@@ -85,25 +85,9 @@ class FriendListActivity : AppCompatActivity() {
         }
 
         btn_friend_request.setOnClickListener {
-            //val db: DatabaseReference = Firebase.database.getReference("users")
-
-            UserApiClient.instance.me { user, error ->
-                if (error != null) {
-                    Log.e("TAG", "사용자 정보 요청 실패", error)
-                } else if (user != null) {
-                    val id = user.id.toString()
-
-                    db.child(id).child("friend").get().addOnSuccessListener {
-                        val friendValue = it.value.toString()
-
-                        if (friendValue == "Waiting") { // 친구 요청이 와 있는 경우
-                            val requestIntent = Intent(this, FriendRequestActivity::class.java)
-                            startActivity(requestIntent)
-                        } else {
-                            Toast.makeText(this, "요청된 친구가 존재하지 않습니다.", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
+             UserApiClient.instance.me { user, error ->
+                val requestIntent = Intent(this, FriendRequestActivity::class.java)
+                startActivity(requestIntent)
             }
         }
     }

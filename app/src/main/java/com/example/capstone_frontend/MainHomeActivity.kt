@@ -15,12 +15,18 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import io.socket.client.IO
+import io.socket.client.Socket
 import kotlinx.android.synthetic.main.activity_main_home.*
 import java.io.IOException
 
 class MainHomeActivity : AppCompatActivity() {
+    lateinit var mSocket: Socket // for socket
+    private val gson = Gson()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_home)
@@ -94,8 +100,6 @@ class MainHomeActivity : AppCompatActivity() {
     }
 
     public fun getToken(db: DatabaseReference, id: String) {
-
-
         Thread(Runnable {
             try {
                 FirebaseInstanceId.getInstance().instanceId
@@ -107,6 +111,19 @@ class MainHomeActivity : AppCompatActivity() {
                         val token = task.result?.token
                         db.child(id).child("nickname").get().addOnSuccessListener {
                             val username = it.value.toString()
+                            try {
+                                mSocket = IO.socket("http://49.50.162.112:80")
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                Log.d("fail", "Failed to connect")
+                            }
+                            mSocket.connect()
+                            var test = "for testing"
+                            mSocket.emit("token", gson.toJson(TokenItem(token.toString(),"")))
+                            mSocket.emit("nickname", gson.toJson(TokenItem(id,"")))
+                            Log.d(
+                                "TOKEN", " added to server"
+                            )
                         }
                     })
             } catch (e: IOException) {

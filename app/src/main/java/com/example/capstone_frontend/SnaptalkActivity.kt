@@ -19,16 +19,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import com.kakao.sdk.user.UserApiClient
 import io.socket.client.Socket
 import kotlinx.android.synthetic.main.activity_intro.*
 import kotlinx.android.synthetic.main.activity_snaptalk.*
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class SnaptalkActivity : AppCompatActivity() {
 
@@ -43,6 +46,8 @@ class SnaptalkActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_snaptalk)
+
+        val db: DatabaseReference = Firebase.database.getReference("users")
 
         val PERMISSIONS_STORAGE = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -62,15 +67,31 @@ class SnaptalkActivity : AppCompatActivity() {
         }
 
         btn_chat.setOnClickListener {
-            initUI()
+            UserApiClient.instance.me { user, error ->
+                if (error != null) {
+                    Log.e("TAG", "사용자 정보 요청 실패", error)
+                } else if (user != null) {
+                    val id = user.id.toString()
+                    val roomNumber = intent.getStringExtra("roomNumber").toString()
+                    db.child(id).child("chatroom").get().addOnSuccessListener {
+                        val chatroom = it.value.toString()
+
+                        if (chatroom == roomNumber) {
+                            initUI(roomNumber)
+                        } else {
+                            Toast.makeText(this, "친구가 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+
         }
     }
 
-    private fun initUI() {
+    private fun initUI(roomNumber: String) {
         // 다크 모드 비활성화
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         val username = intent.getStringExtra("username").toString()
-        val roomNumber = intent.getStringExtra("roomNumber").toString()
 
         val intent = Intent(applicationContext, ChatActivity::class.java)
         intent.putExtra("username", username)

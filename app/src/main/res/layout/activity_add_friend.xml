@@ -9,7 +9,7 @@
 
     <EditText
         android:id="@+id/edit_add_friend"
-        android:layout_width="0dp"
+        android:layout_width="380dp"
         android:layout_height="80dp"
         android:layout_marginTop="350dp"
         android:fontFamily="@font/omnigulim_30"
@@ -25,9 +25,11 @@
         android:id="@+id/btn_add_friend"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/addfriend2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

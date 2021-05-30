@@ -1,5 +1,7 @@
 package com.example.capstone_frontend
 
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -55,39 +57,46 @@ class AddFriendActivity : AppCompatActivity() {
                                                 for (i: DataSnapshot in snapshot.children) {
                                                     userSearch = i.getValue(User::class.java)
                                                     userSearchList.add(userSearch!!)
-
+/*
                                                     if (myChat != null || userSearchList[index].chatroom.toString() != null) {
                                                         Toast.makeText(this@AddFriendActivity, "올바르지 않은 요청입니다.", Toast.LENGTH_SHORT).show()
                                                         break
                                                     }
-
-                                                        if (myName == userSearchList[index].friend.toString() && myFriend == "Waiting") { // 상대방이 이미 친구 신청을 한 경우
+*/
+                                                        if (myName == userSearchList[index].friend.toString()) { // 상대방이 이미 친구 신청을 한 경우
                                                             db.child(id).child("friend").setValue(friendName)
-                                                            Toast.makeText(this@AddFriendActivity, "친구 신청이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                                                            Toast.makeText(this@AddFriendActivity, "친구 신청이 완료되었습니다.", Toast.LENGTH_LONG).show()
 
                                                             if (myType == "P") {
                                                                 val chatRoom = myName + "-" + userSearchList[index].nickname
                                                                 db.child(id).child("chatroom").setValue(chatRoom)
-                                                                db.child(userSearchList[index].userid.toString()).child("chatroom").setValue(chatRoom)
+                                                                //db.child(userSearchList[index].userid.toString()).child("chatroom").setValue(chatRoom)
                                                             } else { // myType == "C"
                                                                 val chatRoom = userSearchList[index].nickname + "-" + myName
                                                                 db.child(id).child("chatroom").setValue(chatRoom)
-                                                                db.child(userSearchList[index].userid.toString()).child("chatroom").setValue(chatRoom)
+                                                                //db.child(userSearchList[index].userid.toString()).child("chatroom").setValue(chatRoom)
                                                             }
 
                                                             edit_add_friend.getText().clear()
                                                             isUserCheck = true
                                                             break
                                                         } else if (friendName == userSearchList[index].nickname.toString()) {
-                                                            db.child(userSearchList[index].userid.toString()).child("friend").setValue("Waiting")
+                                                            //db.child(userSearchList[index].userid.toString()).child("friend").setValue("Waiting")
                                                             db.child(id).child("friend").setValue(friendName)
-                                                            Toast.makeText(this@AddFriendActivity, "친구 신청이 완료 되었습니다.", Toast.LENGTH_SHORT).show()
+                                                            if(myType == "P") {
+                                                                val chatRoom = myName + "-" + userSearchList[index].nickname
+                                                                db.child(id).child("chatroom").setValue(chatRoom)
+                                                            } else { // myType == "C"
+                                                                val chatRoom = userSearchList[index].nickname + "-" + myName
+                                                                db.child(id).child("chatroom").setValue(chatRoom)
+                                                            }
+                                                            Toast.makeText(this@AddFriendActivity, "친구 신청이 완료 되었습니다.", Toast.LENGTH_LONG).show()
 
                                                             edit_add_friend.getText().clear()
                                                             isUserCheck = true
                                                             break
                                                         } else if (myFriend == userSearchList[index].nickname.toString() && myName == userSearchList[index].friend.toString()) {
-                                                            Toast.makeText(this@AddFriendActivity, "이미 친구인 사람입니다.", Toast.LENGTH_SHORT).show()
+                                                            Toast.makeText(this@AddFriendActivity, "이미 친구인 사람입니다.", Toast.LENGTH_LONG).show()
                                                             break
                                                         }
                                                     index++
@@ -111,6 +120,8 @@ class AddFriendActivity : AppCompatActivity() {
                                             }
                                         })
                                     }
+                                    val backIntent = Intent(this, FriendListActivity::class.java)
+                                    startActivity(backIntent.addFlags(FLAG_ACTIVITY_CLEAR_TOP))
                                 }
                             }
                         }
