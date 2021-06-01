@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.gun0912.tedpermission.PermissionListener
@@ -119,8 +120,7 @@ class MainHomeActivity : AppCompatActivity() {
                             }
                             mSocket.connect()
                             var test = "for testing"
-                            mSocket.emit("token", gson.toJson(TokenItem(token.toString(),"")))
-                            mSocket.emit("nickname", gson.toJson(TokenItem(id,"")))
+                            mSocket.emit("token", gson.toJson(TokenItem(token.toString(),id.toString())))
                             Log.d(
                                 "TOKEN", " added to server"
                             )
